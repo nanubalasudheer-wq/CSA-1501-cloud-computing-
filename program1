@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyPoSNc+eULLl2SRDSP8MxpT",
+      "authorship_tag": "ABX9TyPchTZzMNUvKtDzG3CcM2Dt",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -28,43 +28,22 @@
     },
     {
       "cell_type": "code",
+      "execution_count": 2,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
         },
-        "id": "94ef8a0f",
-        "outputId": "46b16fa6-d115-4e5a-d043-cf213f4d8232"
+        "id": "8IBv0IHz9ToZ",
+        "outputId": "e57f9ea7-933d-4c69-9f16-e2ec7d55bdec"
       },
-      "source": [
-        "import csv\n",
-        "a = []\n",
-        "with open('enjoysport.csv', 'r') as csvfile:\n",
-        "    for row in csv.reader(csvfile):\n",
-        "        a.append(row)\n",
-        "    print(a)\n",
-        "print(\"\\n The total number of training instances are : \",len(a))\n",
-        "num_attribute = len(a[0])-1\n",
-        "print(\"\\n The initial hypothesis is : \")\n",
-        "hypothesis = ['0']*num_attribute\n",
-        "print(hypothesis)\n",
-        "for i in range(0, len(a)):\n",
-        " if a[i][num_attribute] == 'yes':\n",
-        "  for j in range(0, num_attribute):\n",
-        "      if hypothesis[j] == '0' or hypothesis[j] == a[i][j]:\n",
-        "          hypothesis[j] = a[i][j]\n",
-        "      else:\n",
-        "          hypothesis[j] = '?'\n",
-        " print(\"\\n The hypothesis for the training instance {} is :\\n\" .format(i+1),hypothesis)\n",
-        "print(\"\\n The Maximally specific hypothesis for the training instance is \")\n",
-        "print(hypothesis)\n"
-      ],
-      "execution_count": 3,
       "outputs": [
         {
           "output_type": "stream",
           "name": "stdout",
           "text": [
-            "[['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'yes'], ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'yes'], ['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'no'], ['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'yes']]\n",
+            "Created 'enjoysport.csv' with sample training data.\n",
+            "\n",
+            "Dataset: [['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'yes'], ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'yes'], ['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'no'], ['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'yes']]\n",
             "\n",
             " The total number of training instances are :  4\n",
             "\n",
@@ -87,6 +66,50 @@
             "['Sunny', 'Warm', '?', 'Strong', '?', '?']\n"
           ]
         }
+      ],
+      "source": [
+        "import csv\n",
+        "import os\n",
+        "\n",
+        "# Sample EnjoySport dataset\n",
+        "data = [\n",
+        "    ['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'yes'],\n",
+        "    ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'yes'],\n",
+        "    ['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'no'],\n",
+        "    ['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'yes']\n",
+        "]\n",
+        "\n",
+        "# Create enjoysport.csv if it doesn't exist\n",
+        "if not os.path.exists('enjoysport.csv'):\n",
+        "    with open('enjoysport.csv', 'w', newline='') as f:\n",
+        "        writer = csv.writer(f)\n",
+        "        writer.writerows(data)\n",
+        "    print(\"Created 'enjoysport.csv' with sample training data.\\n\")\n",
+        "\n",
+        "a = []\n",
+        "with open('enjoysport.csv', 'r') as csvfile:\n",
+        "    for row in csv.reader(csvfile):\n",
+        "        a.append(row)\n",
+        "    print(\"Dataset:\", a)\n",
+        "\n",
+        "print(\"\\n The total number of training instances are : \", len(a))\n",
+        "num_attribute = len(a[0]) - 1\n",
+        "\n",
+        "print(\"\\n The initial hypothesis is : \")\n",
+        "hypothesis = ['0'] * num_attribute\n",
+        "print(hypothesis)\n",
+        "\n",
+        "for i in range(0, len(a)):\n",
+        "    if a[i][num_attribute] == 'yes':\n",
+        "        for j in range(0, num_attribute):\n",
+        "            if hypothesis[j] == '0' or hypothesis[j] == a[i][j]:\n",
+        "                hypothesis[j] = a[i][j]\n",
+        "            else:\n",
+        "                hypothesis[j] = '?'\n",
+        "    print(\"\\n The hypothesis for the training instance {} is :\\n\".format(i + 1), hypothesis)\n",
+        "\n",
+        "print(\"\\n The Maximally specific hypothesis for the training instance is \")\n",
+        "print(hypothesis)"
       ]
     }
   ]
