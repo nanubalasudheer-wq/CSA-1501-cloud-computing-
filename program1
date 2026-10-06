@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyOD+rTeRX41akOwjO3HmroO",
+      "authorship_tag": "ABX9TyPoSNc+eULLl2SRDSP8MxpT",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -28,76 +28,65 @@
     },
     {
       "cell_type": "code",
-      "execution_count": 4,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
         },
-        "id": "T_zR4T8XxxOI",
-        "outputId": "ccf98d31-c02a-4cfa-8b6c-aa78ddb7e0a2"
+        "id": "94ef8a0f",
+        "outputId": "46b16fa6-d115-4e5a-d043-cf213f4d8232"
       },
+      "source": [
+        "import csv\n",
+        "a = []\n",
+        "with open('enjoysport.csv', 'r') as csvfile:\n",
+        "    for row in csv.reader(csvfile):\n",
+        "        a.append(row)\n",
+        "    print(a)\n",
+        "print(\"\\n The total number of training instances are : \",len(a))\n",
+        "num_attribute = len(a[0])-1\n",
+        "print(\"\\n The initial hypothesis is : \")\n",
+        "hypothesis = ['0']*num_attribute\n",
+        "print(hypothesis)\n",
+        "for i in range(0, len(a)):\n",
+        " if a[i][num_attribute] == 'yes':\n",
+        "  for j in range(0, num_attribute):\n",
+        "      if hypothesis[j] == '0' or hypothesis[j] == a[i][j]:\n",
+        "          hypothesis[j] = a[i][j]\n",
+        "      else:\n",
+        "          hypothesis[j] = '?'\n",
+        " print(\"\\n The hypothesis for the training instance {} is :\\n\" .format(i+1),hypothesis)\n",
+        "print(\"\\n The Maximally specific hypothesis for the training instance is \")\n",
+        "print(hypothesis)\n"
+      ],
+      "execution_count": 3,
       "outputs": [
         {
           "output_type": "stream",
           "name": "stdout",
           "text": [
-            "[['sunny', 'warm', 'normal', 'strong', 'warm', 'same', 'yes'], ['sunny', 'warm', 'high', 'strong', 'warm', 'same', 'yes'], ['rainy', 'cold', 'high', 'strong', 'warm', 'change', 'no'], ['sunny', 'warm', 'high', 'strong', 'cool', 'change', 'yes']]\n",
+            "[['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'yes'], ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'yes'], ['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'no'], ['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'yes']]\n",
             "\n",
-            "The total number of training instances are :  4\n",
+            " The total number of training instances are :  4\n",
             "\n",
-            "The initial hypothesis is : \n",
+            " The initial hypothesis is : \n",
             "['0', '0', '0', '0', '0', '0']\n",
             "\n",
-            "The hypothesis for the training instance 1 is :\n",
-            " ['sunny', 'warm', 'normal', 'strong', 'warm', 'same']\n",
+            " The hypothesis for the training instance 1 is :\n",
+            " ['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same']\n",
             "\n",
-            "The hypothesis for the training instance 2 is :\n",
-            " ['sunny', 'warm', '?', 'strong', 'warm', 'same']\n",
+            " The hypothesis for the training instance 2 is :\n",
+            " ['Sunny', 'Warm', '?', 'Strong', 'Warm', 'Same']\n",
             "\n",
-            "The hypothesis for the training instance 3 is :\n",
-            " ['sunny', 'warm', '?', 'strong', 'warm', 'same']\n",
+            " The hypothesis for the training instance 3 is :\n",
+            " ['Sunny', 'Warm', '?', 'Strong', 'Warm', 'Same']\n",
             "\n",
-            "The hypothesis for the training instance 4 is :\n",
-            " ['sunny', 'warm', '?', 'strong', '?', '?']\n",
+            " The hypothesis for the training instance 4 is :\n",
+            " ['Sunny', 'Warm', '?', 'Strong', '?', '?']\n",
             "\n",
-            "The Maximally specific hypothesis for the training instance is \n",
-            "['sunny', 'warm', '?', 'strong', '?', '?']\n"
+            " The Maximally specific hypothesis for the training instance is \n",
+            "['Sunny', 'Warm', '?', 'Strong', '?', '?']\n"
           ]
         }
-      ],
-      "source": [
-        "import csv\n",
-        "\n",
-        "a = []\n",
-        "\n",
-        "with open('enjoysport.csv', 'r') as csvfile:\n",
-        "    for row in csv.reader(csvfile):\n",
-        "        a.append(row)\n",
-        "\n",
-        "print(a)\n",
-        "\n",
-        "print(\"\\nThe total number of training instances are : \", len(a))\n",
-        "\n",
-        "num_attribute = len(a[0]) - 1\n",
-        "\n",
-        "print(\"\\nThe initial hypothesis is : \")\n",
-        "\n",
-        "hypothesis = ['0'] * num_attribute\n",
-        "\n",
-        "print(hypothesis)\n",
-        "\n",
-        "for i in range(0, len(a)):\n",
-        "    if a[i][num_attribute] == 'yes':\n",
-        "        for j in range(0, num_attribute):\n",
-        "            if hypothesis[j] == '0' or hypothesis[j] == a[i][j]:\n",
-        "                hypothesis[j] = a[i][j]\n",
-        "            else:\n",
-        "                hypothesis[j] = '?'\n",
-        "\n",
-        "    print(\"\\nThe hypothesis for the training instance {} is :\\n\".format(i + 1), hypothesis)\n",
-        "\n",
-        "print(\"\\nThe Maximally specific hypothesis for the training instance is \")\n",
-        "print(hypothesis)"
       ]
     }
   ]
